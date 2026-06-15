@@ -1,0 +1,145 @@
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firma - Francisco Paparella</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      padding: 30px;
+      max-width: 550px;
+      width: 100%;
+    }
+    h2 {
+      margin: 0 0 20px 0;
+      color: #333;
+    }
+    .preview {
+      border: 2px dashed #ddd;
+      padding: 20px;
+      border-radius: 8px;
+      background: #fafafa;
+      margin-bottom: 20px;
+    }
+    .copy-btn {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      background: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .copy-btn:hover {
+      background: #333;
+    }
+    .copy-btn.ok {
+      background: #28a745;
+    }
+    .instrucciones {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Firma de Email</h2>
+
+    <div class="preview">
+      <div id="firma">
+        <table cellpadding="0" cellspacing="0" border="0" style="font-family: monospace; font-size: 11px;">
+          <tbody><tr>
+            <td style="padding-bottom: 4px;">
+              <a href="https://www.habitantproductions.com/" target="_blank" style="text-decoration: none; display: inline-block;">
+                <img src="https://raw.githubusercontent.com/MasterPorti/habitantfirmas/main/HTMX.png" alt="H|T" height="35" style="display: block; border: 0; outline: none; height: 35px; width: auto;">
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style="background-color: #000000; color: #ffffff; font-weight: bold; padding: 2px 4px; display: inline-block;">
+                &nbsp;FRANCISCO PAPARELLA // DIRECTOR &amp; ECP&nbsp;&nbsp;
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style="background-color: #000000; color: #ffffff; padding: 2px 4px; display: inline-block;">
+                &nbsp;&nbsp;+52 (55) 4270 1171&nbsp;&nbsp;
+              </span>
+              <span style="padding: 2px 4px;">
+                <a href="https://habitantproductions.mx/" style="color: #000000; text-decoration: none;">WEBSITE</a> //
+                <a href="https://www.instagram.com/habitant.producciones/" style="color: #000000; text-decoration: none;">INSTAGRAM</a>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style="background-color: #000000; color: #ffffff; padding: 2px 4px; display: inline-block;">
+                &nbsp;&nbsp;MEXICO // COLOMBIA // URUGUAY&nbsp;&nbsp;
+              </span>
+            </td>
+          </tr>
+        </tbody></table>
+      </div>
+    </div>
+
+    <button class="copy-btn" onclick="copiar()">Copiar Firma</button>
+
+    <div class="instrucciones">
+      <strong>En Mac Mail:</strong> Ajustes → Firmas → Nueva (+) → Pegar (Cmd+V)
+    </div>
+  </div>
+
+  <script>
+    async function copiar() {
+      const firma = document.getElementById('firma');
+      const btn = document.querySelector('.copy-btn');
+
+      try {
+        const html = firma.innerHTML;
+        const blob = new Blob([html], { type: 'text/html' });
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            'text/html': blob
+          })
+        ]);
+        btn.textContent = '¡Copiado!';
+        btn.classList.add('ok');
+      } catch (err) {
+        // Fallback: selección manual
+        const range = document.createRange();
+        range.selectNodeContents(firma);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        document.execCommand('copy');
+        sel.removeAllRanges();
+        btn.textContent = '¡Copiado!';
+        btn.classList.add('ok');
+      }
+
+      setTimeout(() => {
+        btn.textContent = 'Copiar Firma';
+        btn.classList.remove('ok');
+      }, 2000);
+    }
+  </script>
+
+
+</body></html>
