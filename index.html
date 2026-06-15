@@ -1,0 +1,393 @@
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Firmas - Habitant Productions</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f0f11;
+      color: #e4e4e7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      margin: 0;
+    }
+    .container {
+      background: #18181b;
+      border-radius: 16px;
+      border: 1px solid #27272a;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      padding: 40px;
+      max-width: 800px;
+      width: 100%;
+    }
+    h1 {
+      margin: 0 0 10px 0;
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      text-align: center;
+    }
+    .subtitle {
+      color: #a1a1aa;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: #27272a;
+      border: 1px solid #3f3f46;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .card:hover {
+      background: #3f3f46;
+      border-color: #52525b;
+      transform: translateY(-2px);
+    }
+    .card.active {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+    }
+    .card.active .role {
+      color: #52525b;
+    }
+    .name {
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+    .role {
+      font-size: 11px;
+      color: #a1a1aa;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .preview-box {
+      background: #09090b;
+      border: 1px solid #27272a;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 150px;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+    .btn {
+      flex: 1;
+      padding: 16px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-align: center;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: #ffffff;
+      color: #000000;
+    }
+    .btn-primary:hover {
+      background: #e4e4e7;
+    }
+    .btn-primary.ok {
+      background: #22c55e;
+      color: #ffffff;
+    }
+    .btn-secondary {
+      background: #27272a;
+      color: #ffffff;
+      border: 1px solid #3f3f46;
+    }
+    .btn-secondary:hover {
+      background: #3f3f46;
+    }
+    .instrucciones {
+      background: #18181b;
+      border-top: 1px solid #27272a;
+      padding-top: 20px;
+      font-size: 13px;
+      color: #a1a1aa;
+      line-height: 1.6;
+    }
+    .instrucciones ol {
+      margin: 10px 0 0 20px;
+      padding: 0;
+    }
+    .instrucciones li {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Firmas de Email</h1>
+    <div class="subtitle">Habitant Productions — Selecciona un miembro para ver y copiar su firma</div>
+
+    <div class="grid">
+      <div class="card active" onclick="selectMember('francisco')">
+        <div class="name">Francisco Paparella</div>
+        <div class="role">Director & ECP</div>
+      </div>
+      <div class="card" onclick="selectMember('mariana')">
+        <div class="name">Mariana Garibay</div>
+        <div class="role">Coordinadora</div>
+      </div>
+      <div class="card" onclick="selectMember('gerardo')">
+        <div class="name">Gerardo Salas</div>
+        <div class="role">Director Prod.</div>
+      </div>
+      <div class="card" onclick="selectMember('cris')">
+        <div class="name">Cris Niño</div>
+        <div class="role">Productora Ejecutiva</div>
+      </div>
+    </div>
+
+    <!-- Contenedor donde se renderizan las firmas (ocultas por defecto, excepto la activa) -->
+    <div class="preview-box">
+      <!-- Francisco -->
+      <div id="firma-francisco" class="firma-content">
+        <table cellpadding="0" cellspacing="0" border="0" style="font-family: monospace; font-size: 11px;">
+          <tbody><tr>
+            <td style="padding-bottom: 4px;">
+              <a href="https://www.habitantproductions.com/" target="_blank" style="text-decoration: none; display: inline-block;">
+                <img src="https://raw.githubusercontent.com/MasterPorti/habitantfirmas/main/HTMX.png" alt="H|T" height="35" style="display: block; border: 0; outline: none; height: 35px; width: auto;">
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 2px;">
+              <span style="background-color: #000000; color: #ffffff; font-weight: bold; padding: 2px 4px; display: inline-block;">
+                &nbsp;FRANCISCO PAPARELLA // DIRECTOR &amp; ECP&nbsp;&nbsp;
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 2px;">
+              <span style="background-color: #000000; color: #ffffff; padding: 2px 4px; display: inline-block;">
+                &nbsp;&nbsp;+52 (55) 4270 1171&nbsp;&nbsp;
+              </span>
+              <span style="padding: 2px 4px;">
+                <a href="https://habitantproductions.mx/" style="color: #000000; text-decoration: none;">WEBSITE</a> //
+                <a href="https://www.instagram.com/habitant.producciones/" style="color: #000000; text-decoration: none;">INSTAGRAM</a>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style="background-color: #000000; color: #ffffff; padding: 2px 4px; display: inline-block;">
+                &nbsp;&nbsp;MEXICO // COLOMBIA // URUGUAY&nbsp;&nbsp;
+              </span>
+            </td>
+          </tr>
+        </tbody></table>
+      </div>
+
+      <!-- Mariana -->
+      <div id="firma-mariana" class="firma-content" style="display: none;">
+        <table cellpadding="0" cellspacing="0" border="0" style="font-family: monospace; font-size: 11px;">
+          <tbody><tr>
+            <td style="padding-bottom: 4px;">
+              <a href="https://www.habitantproductions.com/" target="_blank" style="text-decoration: none; display: inline-block;">
+                <img src="https://raw.githubusercontent.com/MasterPorti/habitantfirmas/main/HTMX.png" alt="H|T" height="35" style="display: block; border: 0; outline: none; height: 35px; width: auto;">
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 2px;">
+              <span style="background-color: #000000; color: #ffffff; font-weight: bold; padding: 2px 4px; display: inline-block;">
+                &nbsp;MARIANA GARIBAY // COORDINADORA DE PRODUCCIÓN&nbsp;&nbsp;
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 2px;">
+              <span style="background-color: #000000; color: #ffffff; padding: 2px 4px; display: inline-block;">
+                &nbsp;&nbsp;+52 (55) 1778 0390&nbsp;&nbsp;
+              </span>
+              <span style="padding: 2px 4px;">
+                <a href="https://habitantproductions.mx/" style="color: #000000; text-decoration: none;">WEBSITE</a> //
+                <a href="https://www.instagram.com/habitant.producciones/" style="color: #000000; text-decoration: none;">INSTAGRAM</a>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style="background-color: #000000; color: #ffffff; padding: 2px 4px; display: inline-block;">
+                &nbsp;&nbsp;MEXICO // COLOMBIA // URUGUAY&nbsp;&nbsp;
+              </span>
+            </td>
+          </tr>
+        </tbody></table>
+      </div>
+
+      <!-- Gerardo -->
+      <div id="firma-gerardo" class="firma-content" style="display: none;">
+        <table cellpadding="0" cellspacing="0" border="0" style="font-family: monospace; font-size: 11px;">
+          <tbody><tr>
+            <td style="padding-bottom: 4px;">
+              <a href="https://www.habitantproductions.com/" target="_blank" style="text-decoration: none; display: inline-block;">
+                <img src="https://raw.githubusercontent.com/MasterPorti/habitantfirmas/main/HTMX.png" alt="H|T" height="35" style="display: block; border: 0; outline: none; height: 35px; width: auto;">
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 2px;">
+              <span style="background-color: #000000; color: #ffffff; font-weight: bold; padding: 2px 4px; display: inline-block;">
+                &nbsp;GERARDO SALAS // DIRECTOR DE PRODUCCIÓN&nbsp;&nbsp;
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 2px;">
+              <span style="background-color: #000000; color: #ffffff; padding: 2px 4px; display: inline-block;">
+                &nbsp;&nbsp;+52 (55) 55 082 051&nbsp;&nbsp;
+              </span>
+              <span style="padding: 2px 4px;">
+                <a href="https://habitantproductions.mx/" style="color: #000000; text-decoration: none;">WEBSITE</a> //
+                <a href="https://www.instagram.com/habitant.producciones/" style="color: #000000; text-decoration: none;">INSTAGRAM</a>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style="background-color: #000000; color: #ffffff; padding: 2px 4px; display: inline-block;">
+                &nbsp;&nbsp;MEXICO // COLOMBIA // URUGUAY&nbsp;&nbsp;
+              </span>
+            </td>
+          </tr>
+        </tbody></table>
+      </div>
+
+      <!-- Cris -->
+      <div id="firma-cris" class="firma-content" style="display: none;">
+        <table cellpadding="0" cellspacing="0" border="0" style="font-family: monospace; font-size: 11px;">
+          <tbody><tr>
+            <td style="padding-bottom: 4px;">
+              <a href="https://www.habitantproductions.com/" target="_blank" style="text-decoration: none; display: inline-block;">
+                <img src="https://raw.githubusercontent.com/MasterPorti/habitantfirmas/main/HTMX.png" alt="H|T" height="35" style="display: block; border: 0; outline: none; height: 35px; width: auto;">
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 2px;">
+              <span style="background-color: #000000; color: #ffffff; font-weight: bold; padding: 2px 4px; display: inline-block;">
+                &nbsp;CRIS NIÑO // PRODUCTORA EJECUTIVA&nbsp;&nbsp;
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 2px;">
+              <span style="background-color: #000000; color: #ffffff; padding: 2px 4px; display: inline-block;">
+                &nbsp;&nbsp;+52 55 5404 2966&nbsp;&nbsp;
+              </span>
+              <span style="padding: 2px 4px;">
+                <a href="https://habitantproductions.mx/" style="color: #000000; text-decoration: none;">WEBSITE</a> //
+                <a href="https://www.instagram.com/habitant.producciones/" style="color: #000000; text-decoration: none;">INSTAGRAM</a>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span style="background-color: #000000; color: #ffffff; padding: 2px 4px; display: inline-block;">
+                &nbsp;&nbsp;MEXICO // COLOMBIA // URUGUAY&nbsp;&nbsp;
+              </span>
+            </td>
+          </tr>
+        </tbody></table>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" onclick="copiarFirmaActiva()">Copiar Firma Seleccionada</button>
+      <a id="ver-pagina" class="btn btn-secondary" href="firma_francisco.html" target="_blank">Ver página individual</a>
+    </div>
+
+    <div class="instrucciones">
+      <strong>Instrucciones para Apple Mail en Mac:</strong>
+      <ol>
+        <li>Selecciona al miembro del equipo arriba.</li>
+        <li>Haz clic en **"Copiar Firma Seleccionada"** (se copiará el HTML con formato).</li>
+        <li>Abre la aplicación **Mail** en tu Mac y ve a **Ajustes > Firmas**.</li>
+        <li>Crea una nueva firma con el botón **(+)**.</li>
+        <li>**MUY IMPORTANTE:** Desmarca la casilla *"Conservar siempre el tipo de letra por omisión"*. Si se queda activa, Mail ignorará el diseño de la firma.</li>
+        <li>Borra el texto de prueba que trae por defecto y pega tu firma con `Cmd + V`.</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    let activeMember = 'francisco';
+
+    function selectMember(member) {
+      activeMember = member;
+
+      // Actualizar clases de las tarjetas
+      document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+      const activeCard = document.querySelector(`.card[onclick*="'${member}'"]`);
+      if (activeCard) activeCard.classList.add('active');
+
+      // Ocultar todas las firmas y mostrar la activa
+      document.querySelectorAll('.firma-content').forEach(el => el.style.display = 'none');
+      document.getElementById(`firma-${member}`).style.display = 'block';
+
+      // Actualizar enlace de página individual
+      const verPaginaBtn = document.getElementById('ver-pagina');
+      verPaginaBtn.href = `firma_${member === 'francisco' ? 'francisco' : member}.html`;
+    }
+
+    async function copiarFirmaActiva() {
+      const firma = document.getElementById(`firma-${activeMember}`);
+      const btn = document.querySelector('.btn-primary');
+
+      try {
+        const html = firma.innerHTML;
+        const blob = new Blob([html], { type: 'text/html' });
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            'text/html': blob
+          })
+        ]);
+        btn.textContent = '¡Copiado con éxito!';
+        btn.classList.add('ok');
+      } catch (err) {
+        // Fallback: selección manual
+        const range = document.createRange();
+        range.selectNodeContents(firma);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        document.execCommand('copy');
+        sel.removeAllRanges();
+        btn.textContent = '¡Copiado con éxito!';
+        btn.classList.add('ok');
+      }
+
+      setTimeout(() => {
+        btn.textContent = 'Copiar Firma Seleccionada';
+        btn.classList.remove('ok');
+      }, 2000);
+    }
+  </script>
+</body></html>
